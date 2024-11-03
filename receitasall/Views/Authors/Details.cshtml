@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Details</h2>
+<h2>Meu Perfil de Autor</h2>
 @if (!ViewBag.HasAuthor)
 {
     <h1>
@@ -17,8 +17,21 @@
 @if (ViewBag.HasAuthor)
 {
     <div>
-        <h4>Author</h4>
+        <h4>Autor</h4>
         <hr />
+
+        <div class="author-image-profile-wrapper">
+            @if (Model.Image != null && !string.IsNullOrEmpty(Model.Image))
+            {
+                <img class="author-image-profile" src="@Model.Image" alt="imagem do autor">
+            }
+            else
+            {
+                <img class="author-image-profile" src="~/Images/author-default.png" alt="imagem do autor">
+            }
+        </div>
+
+
         <dl class="dl-horizontal">
             <dt>
                 @Html.DisplayNameFor(model => model.FirstName)
@@ -44,13 +57,13 @@
                 @Html.DisplayFor(model => model.Nacionality)
             </dd>
 
-            <dt>
+            @*<dt>
                 @Html.DisplayNameFor(model => model.Image)
             </dt>
 
             <dd>
                 @Html.DisplayFor(model => model.Image)
-            </dd>
+            </dd>*@
 
             <dt>
                 @Html.DisplayNameFor(model => model.Bibliography)

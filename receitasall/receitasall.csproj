@@ -224,6 +224,7 @@
     <Content Include="Images\expand_less.png" />
     <Content Include="Images\expand_more.png" />
     <Content Include="Images\facil.png" />
+    <Content Include="Images\favicon.png" />
     <Content Include="Images\ingredients.png" />
     <Content Include="Images\medio.png" />
     <Content Include="Images\private.png" />

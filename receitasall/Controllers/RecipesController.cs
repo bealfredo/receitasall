@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
+using receitasall.Enums;
 using receitasall.Models;
 
 namespace receitasall.Controllers
@@ -17,25 +18,68 @@ namespace receitasall.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Recipes
-        public ActionResult Index()
+        //public ActionResult Index()
+        //{
+        //    //var userId = User.Identity.GetUserId();
+
+        //    //if (userId == null)
+        //    //{
+        //    //    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    //}
+        //    //Author author = db.Authors.FirstOrDefault(a => a.UserId.ToString() == userId);
+
+
+        //    // check if its private mas pro admin mandar todos
+        //    //var recipes = db.Recipes.Where(r => r.IsPrivate == false).ToList();
+
+        //    // order by dateAdded, as ultimo adicionado vem primeiro
+        //    var recipes = db.Recipes.OrderByDescending(r => r.DateAdded).ToList();
+
+        //    return View(recipes);
+        //}
+
+        public ActionResult Index(string title, Difficulty? difficulty, string authorName)
         {
-            //var userId = User.Identity.GetUserId();
+            var recipesQuery = db.Recipes.Include(r => r.Author).AsQueryable();
 
-            //if (userId == null)
-            //{
-            //    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            //}
-            //Author author = db.Authors.FirstOrDefault(a => a.UserId.ToString() == userId);
+            // Filtro por título
+            if (!string.IsNullOrEmpty(title))
+            {
+                recipesQuery = recipesQuery.Where(r => r.Title.Contains(title));
+            }
 
+            // Filtro por dificuldade
+            if (difficulty.HasValue)
+            {
+                recipesQuery = recipesQuery.Where(r => r.Difficulty == difficulty.Value);
+            }
 
-            // check if its private mas pro admin mandar todos
-            //var recipes = db.Recipes.Where(r => r.IsPrivate == false).ToList();
+            // Filtro por nome do autor
+            if (!string.IsNullOrEmpty(authorName))
+            {
+                authorName = authorName.Trim();
+                recipesQuery = recipesQuery.Where(r =>
+                    (r.Author.FirstName + " " + r.Author.LastName).Contains(authorName) ||
+                    r.Author.Pseudonym.Contains(authorName)
+                );
+            }
 
-            // order by dateAdded, as ultimo adicionado vem primeiro
-            var recipes = db.Recipes.OrderByDescending(r => r.DateAdded).ToList();
+            // Ordena por data de adição, mais recente primeiro
+            var recipes = recipesQuery.OrderByDescending(r => r.DateAdded).ToList();
+
+            // Lista de dificuldades personalizadas
+            ViewBag.Difficulties = new SelectList(new[]
+            {
+                new { Value = Difficulty.Easy, Text = "Fácil" },
+                new { Value = Difficulty.Medium, Text = "Médio" },
+                new { Value = Difficulty.Hard, Text = "Difícil" }
+            }, "Value", "Text");
+
+            ViewBag.Authors = db.Authors.ToList();
 
             return View(recipes);
         }
+
 
         // GET: Recipes/Details/5
         public ActionResult Details(int? id)
@@ -94,6 +138,7 @@ namespace receitasall.Controllers
         }
 
         // GET: Recipes/Create
+        [Authorize]
         public ActionResult Create(string RedirectCookbookId)
         {
 
@@ -174,6 +219,7 @@ namespace receitasall.Controllers
         }
 
         // GET: Recipes/Edit/5
+        [Authorize]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -267,6 +313,7 @@ namespace receitasall.Controllers
         }
 
         // GET: Recipes/Delete/5
+        [Authorize]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -361,7 +408,8 @@ namespace receitasall.Controllers
         }
 
 
-        // GET: Recipes
+        // GET: Recipes/MyRecipes
+        [Authorize]
         public ActionResult MyRecipes()
         {
             var userId = User.Identity.GetUserId();
@@ -374,14 +422,18 @@ namespace receitasall.Controllers
 
             if (author == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                ViewBag.HasAuthor = false;
+                return View();
             }
+            ViewBag.HasAuthor = true;
 
             author.Recipes = author.Recipes.OrderByDescending(r => r.ID).ToList();
 
             return View(author.Recipes);
         }
 
+        // GET: Recipes/MyFavorites
+        [Authorize]
         public ActionResult MyFavorites()
         {
             var userId = User.Identity.GetUserId();
@@ -394,20 +446,14 @@ namespace receitasall.Controllers
 
             if (author == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                ViewBag.HasAuthor = false;
+                return View();
             }
+            ViewBag.HasAuthor = true;
+
 
             author.FavoriteRecipes = author.FavoriteRecipes.OrderByDescending(r => r.DateAdded).ToList();
 
-            //var recipes = new List<Recipe>();
-            //foreach (var favorite in author.FavoriteRecipes)
-            //{
-            //    var recipe = db.Recipes.Find(favorite.RecipeId);
-            //    if (recipe != null && !recipe.IsPrivate)
-            //    {
-            //        recipes.Add(recipe);
-            //    }
-            //}
 
             var favoriteRecipes = author.FavoriteRecipes.Where(f => f.Recipe.IsPrivate == false).ToList();
 

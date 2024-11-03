@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
+using receitasall.Enums;
 using receitasall.Models;
 
 namespace receitasall.Controllers
@@ -17,75 +18,43 @@ namespace receitasall.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Cookbooks
-        public ActionResult Index()
+        //public ActionResult Index()
+        //{
+        //    var userId = User.Identity.GetUserId();
+
+        //    var cookbooks = db.Cookbooks.OrderByDescending(c => c.DateAdded).ToList();
+
+        //    return View(cookbooks);
+        //}
+
+        public ActionResult Index(string title, string authorName)
         {
-            var userId = User.Identity.GetUserId();
+            var cookbooksQuery = db.Cookbooks.Include(r => r.Author).AsQueryable();
 
-            if (userId == null)
+            // Filtro por título
+            if (!string.IsNullOrEmpty(title))
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Author author = db.Authors.FirstOrDefault(a => a.UserId.ToString() == userId);
-
-            if (author == null)
-            {
-                ViewBag.myCookbooks = new List<Cookbook>();
-            }
-            else
-            {
-                ViewBag.myRecipes = author.Cookbooks;
+                cookbooksQuery = cookbooksQuery.Where(r => r.Title.Contains(title));
             }
 
-            // order by desc
-            var cookbooks = db.Cookbooks.OrderByDescending(c => c.DateAdded).ToList();
+
+            // Filtro por nome do autor
+            if (!string.IsNullOrEmpty(authorName))
+            {
+                authorName = authorName.Trim();
+                cookbooksQuery = cookbooksQuery.Where(r =>
+                    (r.Author.FirstName + " " + r.Author.LastName).Contains(authorName) ||
+                    r.Author.Pseudonym.Contains(authorName)
+                );
+            }
+
+            // Ordena por data de adição, mais recente primeiro
+            var cookbooks = cookbooksQuery.OrderByDescending(r => r.DateAdded).ToList();
 
             return View(cookbooks);
         }
 
         // GET: Cookbooks/Details/5
-        //public ActionResult Details(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //    }
-        //    Cookbook cookbook = db.Cookbooks.Find(id);
-        //    if (cookbook == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
-
-        //    if (cookbook.IsPrivate)
-        //    {
-        //        var userId = User.Identity.GetUserId();
-        //        if (userId == null)
-        //        {
-        //            return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //        }
-        //        Author author = db.Authors.FirstOrDefault(a => a.UserId.ToString() == userId);
-        //        var userManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
-        //        var user = userManager.FindById(userId);
-        //        if (!user.Admin)
-        //        {
-        //            if (author == null || author.ID != cookbook.AuthorId)
-        //            {
-        //                return new HttpStatusCodeResult(HttpStatusCode.Forbidden);
-        //            } else
-        //            {
-        //                cookbook.RecipeCookbook = cookbook.RecipeCookbook.OrderBy(i => i.Order).ToList();
-        //                return View(cookbook);
-        //            }
-
-        //        }
-        //    }
-
-        //    // ordena as receitas
-
-        //    //return View(cookbook);
-
-
-        //}
-
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -139,6 +108,7 @@ namespace receitasall.Controllers
         }
 
         // GET: Cookbooks/Create
+        [Authorize]
         public ActionResult Create()
         {
             var userId = User.Identity.GetUserId();
@@ -201,6 +171,7 @@ namespace receitasall.Controllers
         }
 
         // GET: Cookbooks/Edit/5
+        [Authorize]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -293,6 +264,7 @@ namespace receitasall.Controllers
         }
 
         // GET: Cookbooks/Delete/5
+        [Authorize]
         public ActionResult Delete(int? id)
         {
             if (id == null)

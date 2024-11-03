@@ -39,6 +39,7 @@ namespace receitasall.Controllers
         //}// to delete
 
         // GET: RecipeCookbooks/Create
+        [Authorize]
         public ActionResult Create(int cookbookId, int? recipeId)
         {
             var cookbook = db.Cookbooks.Find(cookbookId);
@@ -148,6 +149,7 @@ namespace receitasall.Controllers
         }
 
         // GET: RecipeCookbooks/Edit/5
+        [Authorize]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -245,6 +247,7 @@ namespace receitasall.Controllers
         }
 
         // GET: RecipeCookbooks/Delete/5
+        [Authorize]
         public ActionResult Delete(int? id)
         {
             if (id == null)

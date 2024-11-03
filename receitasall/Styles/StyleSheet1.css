@@ -628,3 +628,37 @@ div.possiveis-decoracoes > img {
     margin: 20px;
     margin-bottom: 40px;
 }
+
+
+/* Altor image */
+
+.author-image-profile-wrapper {
+    width: 200px;
+    height: 200px;
+    position: relative;
+    border-radius: 50%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    text-align:center;
+    vertical-align: central;
+}
+
+.author-image-profile {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+
+/* filter */
+
+.filter {
+    display: flex;
+    gap: 8px;
+    align-items: flex-end;
+}

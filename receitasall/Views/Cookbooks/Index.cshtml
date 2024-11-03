@@ -12,6 +12,24 @@
     <button class="btn btn-primary" onclick=" window.location.href = '@Url.Action("Create", "Cookbooks")' ">Criar novo livro de receita</button>
 </p>
 
+@using (Html.BeginForm("Index", "Cookbooks", FormMethod.Get))
+{
+    <div class="filter blockquote-comment">
+        <div class="form-group">
+            <label for="title">Título:</label>
+            <input class="form-control" type="text" name="title" placeholder="Buscar por título" value="@Request.QueryString["title"]" />
+        </div>
+
+        <div class="form-group">
+            <label for="authorName">Nome do Autor / Pseudônimo:</label>
+            <input class="form-control" type="text" name="authorName" placeholder="Buscar por autor" value="@Request.QueryString["authorName"]" />
+        </div>
+
+        <button class="btn btn-secondary" type="submit">Filtrar</button>
+
+    </div>
+}
+
 <table class="table">
     <tr>
         <th>
@@ -32,55 +50,56 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            #@Html.DisplayFor(modelItem => item.ID)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Title)
-        </td>
-        <td>
-            <span class="receita-header-datetime" style="margin: 0">
-                @item.DateAdded.ToString("dd/MM/yyyy") às @item.DateAdded.ToString("HH:mm")
-                @if (item.DateAdded != item.DateUpdated)
-                {
-                    <span class="receita-header-datetime-modified">
-                        (modificado pela última vez em @item.DateUpdated.ToString("dd/MM/yyyy") às @item.DateUpdated.ToString("HH:mm"))
-                    </span>
-                }
-            </span>
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.IsPrivate)
-        </td>
-        <td>
-            <div class="author" style="padding: 0;">
-                @if (item.Author != null && item.Author.Image != null && !string.IsNullOrEmpty(item.Author.Image))
-                {
-                    <img class="author-image" src="@item.Author.Image" alt="imagem do autor">
-                }
-                else
-                {
-                    <img class="author-image" src="~/Images/author-default.png" alt="imagem do autor">
-                }
-
-                <span class="author-name">
-                    <span>
-                        @item.Author.FirstName @item.Author.LastName @if (item.Author.Pseudonym != null)
-                        {<span>(AKA @item.Author.Pseudonym)</span>}
-
-
-                    </span>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                #@Html.DisplayFor(modelItem => item.ID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                <span class="receita-header-datetime" style="margin: 0">
+                    @item.DateAdded.ToString("dd/MM/yyyy") às @item.DateAdded.ToString("HH:mm")
+                    @if (item.DateAdded != item.DateUpdated)
+                    {
+                        <span class="receita-header-datetime-modified">
+                            (modificado pela última vez em @item.DateUpdated.ToString("dd/MM/yyyy") às @item.DateUpdated.ToString("HH:mm"))
+                        </span>
+                    }
                 </span>
-            </div>
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id = item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.ID })
-        </td>
-    </tr>
-}
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsPrivate)
+            </td>
+            <td>
+                <div class="author" style="padding: 0;">
+                    @if (item.Author != null && item.Author.Image != null && !string.IsNullOrEmpty(item.Author.Image))
+                    {
+                        <img class="author-image" src="@item.Author.Image" alt="imagem do autor">
+                    }
+                    else
+                    {
+                        <img class="author-image" src="~/Images/author-default.png" alt="imagem do autor">
+                    }
+
+                    <span class="author-name">
+                        <span>
+                            @item.Author.FirstName @item.Author.LastName @if (item.Author.Pseudonym != null)
+                            {<span>(AKA @item.Author.Pseudonym)</span>}
+
+
+                        </span>
+                    </span>
+                </div>
+            </td>
+            <td>
+                @Html.ActionLink("Editar", "Edit", new { id = item.ID }) |
+                @Html.ActionLink("Acessar", "Details", new { id = item.ID }) |
+                @Html.ActionLink("Deletar", "Delete", new { id = item.ID })
+            </td>
+        </tr>
+    }
 
 </table>
