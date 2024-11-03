@@ -1,0 +1,184 @@
+﻿@model receitasall.Models.Recipe
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Receita: #@Model.ID</h2>
+
+
+@*<h3>Você tem certeza que deseja apagar a receita?</h3>*@
+
+<div class="blockquote-warn">
+    Essa ação não pode ser desfeita.
+</div>
+
+
+<div>
+    <h4>Apagar Receita</h4>
+    <hr />
+    <div class="receita-wrapper short">
+        <div class="receita-header">
+            <div class="author">
+                @*@if (Model.Author != null && Model.Author.Image != null && !string.IsNullOrEmpty(Model.Author.Image))
+                {
+                    <img class="author-image" src="@Model.Author.Image" alt="imagem do autor">
+                }
+                else
+                {
+                    <img class="author-image" src="~/Images/author-default.png" alt="imagem do autor">
+                }*@
+
+                <span class="author-name">
+                    <span>
+                        @*@Model.Author.FirstName @Model.Author.LastName @if (Model.Author.Pseudonym != null)
+                        {<span>(AKA @Model.Author.Pseudonym)</span>}*@
+
+                        <span class="receita-header-datetime">
+                            @Model.DateAdded.ToString("dd/MM/yyyy") às @Model.DateAdded.ToString("HH:mm")
+                            @if (Model.DateAdded != Model.DateUpdated)
+                            {
+                                <span class="receita-header-datetime-modified">
+                                    (modificado pela última vez em @Model.DateUpdated.ToString("dd/MM/yyyy") às @Model.DateUpdated.ToString("HH:mm"))
+                                </span>
+                            }
+                        </span>
+                    </span>
+                    @*<span class="author-name-tag">
+                        Autor
+                    </span>*@
+                </span>
+            </div>
+
+            <div class="visibilidade">
+                @if (Model.IsPrivate)
+                {
+                    <img class="visibility-image" src="~/Images/private.png" alt="visibilidade"> <span>Privada</span>
+                }
+                else
+                {
+                    <img class="visibility-image" src="~/Images/public.png" alt="visibilidade"> <span>Pública</span>
+                }
+            </div>
+        </div>
+
+        <div class="receita printable short" id="receita-@Model.ID" style="--accentColor: @(Model.AccentColor ?? "rgb(0,0,0)")">
+            <div class="receita-content">
+                <div class="receita-about">
+                    @if (Model.Image != null && !string.IsNullOrEmpty(Model.Image))
+                    {
+                        <img class="receita-img" src="@Model.Image" alt="imagem da receita">
+                    }
+                    else
+                    {
+                        <img class="receita-img" src="~/Images/recipe-default2.png" alt="imagem da receita">
+                    }
+
+                    <div class="receita-right">
+                        <div class="receita-header">
+                            <div style="display:flex; align-items:flex-end;">
+                                <h2 class="receita-title">
+                                    @Model.Title
+                                </h2>
+                            </div>
+
+                            <div class="receita-id">
+                                #@Model.ID
+                            </div>
+                        </div>
+
+                        <div class="receita-short-content">
+                            <div style="height: 83px; padding: 20px;">
+                                @if (Model.Description != null)
+                                {
+                                    <span>@(Model.Description.Length > 100 ? Model.Description.Substring(0, 100) + "..." : Model.Description)</span>
+                                }
+                            </div>
+
+                            <div class="receita-info">
+                                <span>
+                                    @if (Model.Difficulty == receitasall.Enums.Difficulty.Easy)
+                                    {
+                                        <img src="~/Images/facil.png" alt="">
+                                    }
+                                    else if (Model.Difficulty == receitasall.Enums.Difficulty.Medium)
+                                    {
+                                        <img src="~/Images/medio.png" alt="">
+                                    }
+                                    else
+                                    {
+                                        <img src="~/Images/dificil.png" alt="">
+                                    }
+                                    <span class="receita-info-value">
+                                        @if (Model.Difficulty == receitasall.Enums.Difficulty.Easy)
+                                        {
+                                            <span>fácil</span>
+                                        }
+                                        else if (Model.Difficulty == receitasall.Enums.Difficulty.Medium)
+                                        {
+                                            <span>médio</span>
+                                        }
+                                        else
+                                        {
+                                            <span>difícil</span>
+                                        }
+                                    </span>
+                                </span>
+
+                                <span>
+                                    <img src="~/Images/time.png" alt="">
+                                    <span class="receita-info-value">@Model.PreparationTimeInMinutes min</span>
+                                </span>
+
+                                <span>
+                                    <img src="~/Images/ingredients.png" alt="">
+                                    <span class="receita-info-value">@Model.Ingredients.Count ingreditentes</span>
+                                </span>
+
+                                <span>
+                                    @if (Model.IsPrivate)
+                                    {
+                                        <img class="visibility-image" src="~/Images/private.png" alt="visibilidade"> <span class="receita-info-value">privada</span>
+                                    }
+                                    else
+                                    {
+                                        <img class="visibility-image" src="~/Images/public.png" alt="visibilidade"> <span class="receita-info-value">pública</span>
+                                    }
+                                </span>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <div class="receita-actions">
+                    <button class="btn btn-secondary" onclick=" window.location.href = '@Url.Action("Details", "Recipes", new { id = Model.ID})' ">Acessar</button>
+                </div>
+            </div>
+
+            @if (Model.Image != null && !string.IsNullOrEmpty(Model.Image))
+            {
+                <img class="receita-background" src="@Model.Image" alt="imagem da receita">
+            }
+            else
+            {
+                <img class="receita-background" src="~/Images/recipe-default2.png" alt="imagem da receita">
+            }
+        </div>
+    </div>
+
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-outline-secondary" /> |
+
+            <button type="button" class="btn btn-secondary" onclick=" window.location.href = '@Url.Action("Edit", "Recipes", new { id = Model.ID })' ">Cancelar</button>
+        </div>
+    }
+</div>

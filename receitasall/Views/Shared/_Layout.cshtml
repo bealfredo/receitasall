@@ -1,0 +1,58 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Meu Aplicativo ASP.NET</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+    @*<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sofia&effect=fire-animation|emboss">*@
+
+
+    @*<link href="~/Styles/StyleSheet1.css" rel="stylesheet" />*@
+    <link href="~/Styles/StyleSheet1.css?v=@DateTime.Now.Ticks" rel="stylesheet" />
+
+    @*@Scripts.Render("~/Styles/StyleSheet1.css")*@
+
+</head>
+<body>
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark">
+        <div class="container">
+            @Html.ActionLink("Nome do aplicativo", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" title="Alternar a navegação" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse d-sm-inline-flex justify-content-between">
+                <ul class="navbar-nav flex-grow-1">
+                    <li>@Html.ActionLink("Página Inicial", "Index", "Home", new { area = "" }, new { @class = "nav-link" })</li>
+                    @*<li>@Html.ActionLink("Sobre", "About", "Home", new { area = "" }, new { @class = "nav-link" })</li>
+                    <li>@Html.ActionLink("Contato", "Contact", "Home", new { area = "" }, new { @class = "nav-link" })</li>*@
+                    <li>@Html.ActionLink("Receitas", "Index", "Recipes", new { area = "" }, new { @class = "nav-link" })</li>
+                    <li>@Html.ActionLink("Livros de Receitas", "Index", "Cookbooks", new { area = "" }, new { @class = "nav-link" })</li>
+                    <li>@Html.ActionLink("Meu Perfil", "Details", "Authors", new { area = "" }, new { @class = "nav-link" })</li>
+                    <li>@Html.ActionLink("Minhas Receitas", "MyRecipes", "Recipes", new { area = "" }, new { @class = "nav-link" })</li>
+                    <li>@Html.ActionLink("Favoritas", "MyFavorites", "Recipes", new { area = "" }, new { @class = "nav-link" })</li>
+
+
+                </ul>
+                 @Html.Partial("_LoginPartial")
+            </div>
+        </div>
+    </nav>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - Meu Aplicativo ASP.NET</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,575 @@
+﻿@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;700&display=swap'); /* ubuntu */
+
+body {
+    font-family: 'Roboto', sans-serif;
+}
+
+.blockquote-error {
+    background-color: rgba(255, 0, 0, 0.1);
+    border-left: 5px solid rgba(255, 0, 0, 0.5);
+    padding: 1rem;
+    margin: 1rem;
+}
+
+.blockquote-warn {
+    background-color: rgb(255, 229, 109);
+    border-left: 5px solid rgba(252, 208, 108, 0.5);
+    padding: 1rem;
+    margin: 1rem;
+}
+
+.blockquote-comment {
+    background-color: rgba(0, 0, 0, 0.1);
+    border-left: 5px solid rgba(0, 0, 0, 0.5);
+    padding: 1rem;
+    margin: 1rem;
+}
+
+
+
+
+
+
+
+
+
+
+receita * {
+    font-size: 62.5% !important;
+}
+
+receita * {
+    padding: 0 !important;
+    margin: 0 !important;
+    box-sizing: border-box !important;
+}
+
+receita * {
+    font-size: 1.6rem !important;
+}
+
+/* receita wrapper */
+
+.receita-wrapper {
+/*    border: 2px solid red;*/
+border-top: 1px solid rgba(0,0,0,0.1)
+}
+
+.receita-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.receita-header-datetime {
+    color: rgba(0,0,0,0.7);
+    font-size: 12px;
+    font-weight: 400;
+    margin-left: 20px;
+}
+
+.receita-wrapper .author {
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.receita-wrapper .author-image {
+    box-shadow: 0px 0px 4px rgba(0,0,0,0.8);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center;
+}
+
+.author-name {
+    display: flex;
+    flex-direction: column;
+    font-weight: 600;
+}
+
+.author-name-tag {
+    font-weight: 400;
+    font-size: 0.8rem;
+}
+
+
+.visibilidade {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 20px;
+}
+
+.visibility-image {
+    width: 24px;
+    height: 24px;
+}
+
+/* ----------- receitas --------------*/
+section[id^=receitas] {
+    position: relative;
+}
+
+.receita {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-family: ubuntu;
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 5px 5px 5px #bebebe, -5px -5px 5px #ffffff;
+    margin: 0 1rem 5rem;
+}
+
+.receita-id {
+    margin-right: 130px;
+}
+
+    /* --- fundos ---*/
+
+
+    /* ----- */
+
+    .receita.closed .content-hidden {
+        display: none;
+    }
+
+    .receita img.receita-background {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        height: 100%;
+        width: 70%;
+        object-fit: cover;
+        filter: blur(10px);
+    }
+
+.receita-content {
+    padding: 2rem 7rem;
+    position: relative;
+    z-index: 2;
+    background-image: linear-gradient(to right, #e0e0e0, #e0e0e0, rgba(0, 0, 0, 0.3));
+    background-image: linear-gradient(to right, #e8e8e8, #e8e8e8, rgba(0, 0, 0, 0.3));
+    background-color: transparent;
+    /* opacity: 0.5; */
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    text-align: justify;
+    color: rgba(0, 0, 0, 0.9);
+}
+
+.receita h2 {
+    background-image: linear-gradient(to right, transparent, var(--accentColor), transparent);
+    width: fit-content;
+    padding: 1rem 5rem;
+    text-shadow: 0 0 4px black;
+    color: white;
+    margin-left: -5rem;
+    position: relative;
+    text-align: left;
+    filter: drop-shadow(0 0 4px black);
+}
+
+.receita img.guirlanda {
+    position: absolute;
+    width: 5rem;
+    top: 0.5rem;
+    left: 95%;
+    z-index: 4;
+    /* filter: drop-shadow(0 0 5px); */
+    animation: guirlanda 10s infinite var(--delay) ease-in-out;
+    transform-origin: top;
+    user-select: none;
+}
+
+@keyframes guirlanda {
+    0% {
+        transform: rotate(0);
+    }
+
+    33% {
+        transform: rotate(45deg);
+    }
+
+    66% {
+        transform: rotate(-45deg);
+    }
+
+    100% {
+        transform: rotate(0);
+    }
+}
+
+/* receita-about */
+.receita-about {
+    max-width: 85rem;
+    height: 300px;
+    display: grid;
+    position: relative;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    gap: 2rem;
+    grid-template-areas: 'img description' 'img info';
+    /* border: 1px solid greenyellow; */
+}
+
+/*    .receita-about .receita-img {
+        position: relative;
+        border: 1px solid red;
+    }*/
+
+    .receita-about .receita-img{
+        grid-area: img;
+        height: 300px;
+        width: 400px;
+        position:relative;
+        object-fit: cover;
+        border-radius: 1rem;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+    }
+
+    .receita-about p.description {
+        width: 100%;
+        grid-area: description;
+    }
+
+    .receita-about .receita-info {
+        display: flex;
+        width: 100%;
+        gap: 0.5rem;
+        grid-area: info;
+        align-items: flex-end;
+    }
+
+        .receita-about .receita-info > span {
+            /* width: 33.33%; */
+            flex: 1;
+            height: 12rem;
+            padding: 0.5rem;
+            padding-top: 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            text-align: center;
+            gap: 0.5rem;
+            font-variant: small-caps;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 1rem;
+        }
+
+        .receita-about .receita-info .receita-info-value {
+            opacity: 0.7;
+        }
+
+        .receita-about .receita-info img {
+            width: 4rem;
+        }
+
+@media screen and (max-width:950px) {
+    .receita-about {
+        display: grid;
+        grid-template-areas: 'img description' 'info info';
+        height: initial;
+        grid-template-columns: 60% 40%;
+    }
+
+        .receita-about img.receita-img,
+        .receita-about p.description,
+        .receita-about .receita-info {
+            max-width: 100%;
+            width: 100%;
+        }
+
+    .receita-content {
+        padding: 2rem 5rem;
+    }
+
+    .receita h2 {
+        margin-left: -3rem;
+    }
+}
+
+@media screen and (max-width:800px) {
+    .receita-about {
+        display: grid;
+        grid-template-areas: 'img' 'description' 'info';
+        height: initial;
+        grid-template-columns: 100%;
+    }
+
+    .receita-content {
+        padding: 2rem 3rem;
+    }
+
+    .receita h2 {
+        margin-left: -1rem;
+    }
+}
+
+
+/* receita-content */
+
+.receita-content .content-hidden :where(h3, ul, p) {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+.receita h3 {
+    opacity: 0.7;
+    text-decoration: 3px underline var(--accentColor);
+    margin-top: 2rem;
+    counter-reset: p;
+    text-transform: uppercase;
+}
+
+.receita span.counterReset {
+    counter-reset: p;
+}
+
+.receita h3:not(:first-of-type) {
+    margin-top: 3rem;
+}
+
+.receita h4 {
+    opacity: 0.7;
+    margin-left: 2rem;
+    margin-top: 2rem;
+    text-decoration: 3px underline rgba(0, 0, 0, 0.2);
+    text-transform: uppercase;
+}
+
+.receita ul {
+    margin-left: 40px;
+    margin-bottom: 20px;
+}
+
+.receita li {
+    margin-top: 1rem;
+    text-align: left;
+}
+
+.receita-content .content-hidden p {
+    width: min(85rem, 100%);
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    display: grid;
+    grid-template-columns: auto auto;
+    align-items: center;
+    /* border-left: 3px solid rgba(0, 0, 0, 0.1); */
+}
+
+    .receita-content .content-hidden p::before {
+        counter-increment: p;
+        content: counter(p);
+        width: 2.5rem;
+        height: 100%;
+        padding: 0.5rem;
+        margin-left: 1rem;
+        margin-right: 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        border-right: 3px solid rgba(0, 0, 0, 0.1);
+        font-weight: bold;
+        color: rgba(0, 0, 0, 0.5);
+    }
+
+
+/* possiveis decorações */
+.receita div.possiveis-decoracoes {
+    margin-top: 2rem;
+    width: 100%;
+    overflow-x: scroll;
+    display: flex;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    border-radius: 1rem;
+    background-color: black;
+}
+
+div.possiveis-decoracoes > img {
+    width: 25rem;
+    object-fit: cover;
+    object-position: center;
+    height: 38rem;
+}
+
+/* botões - actions */
+.receita-actions {
+    width: 10rem;
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 5;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-radius: 0 1rem 0 1rem;
+    overflow: hidden;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
+}
+
+    .receita-actions button {
+        /* height: 7rem; */
+        border: none;
+        background: transparent;
+        padding: 1rem 1rem;
+        cursor: pointer;
+        color: whitesmoke;
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+/*        flex-direction: column;*/
+        transition: background-color 0.3s;
+        outline: none;
+        font-weight: bold;
+    }
+
+        .receita-actions button:where(:hover, :focus) {
+            background-color: rgba(0, 0, 0, 1);
+        }
+
+        .receita-actions button.favorited {
+            color: rgb(255, 207, 78);
+        }
+
+            .receita-actions button.favorited span.favorite-icon-holder {
+                animation: favorited 1s;
+            }
+
+        .receita-actions button {
+            font-variant: small-caps;
+            text-transform: lowercase;
+        }
+
+@keyframes favorited {
+    0% {
+        /* color: whitesmoke; */
+        transform: scale(1.0);
+    }
+
+    50% {
+        transform: scale(2);
+        /* color: red; */
+    }
+
+    100% {
+        /* color: red; */
+        transform: scale(1.0);
+    }
+}
+
+/* button show more less*/
+.receita button.receita-show-moreless {
+    padding: 1rem;
+    margin: 2rem auto 0rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 15rem;
+    height: 4rem;
+    border: none;
+    background-color: rgba(0, 0, 0, 0.1);
+    border-radius: 15px / 50px;
+    transition: all 0.3s;
+    outline: none;
+    cursor: pointer;
+}
+
+    .receita button.receita-show-moreless:hover {
+        box-shadow: 4px 0 0 black, -4px 0 0 black;
+        background-color: rgba(0, 0, 0, 0.15);
+    }
+
+    .receita button.receita-show-moreless:focus {
+        background-color: rgba(0, 0, 0, 0.15);
+    }
+
+    .receita button.receita-show-moreless.more .receita-show-less {
+        display: none;
+    }
+
+    .receita button.receita-show-moreless.less .receita-show-more {
+        display: none;
+    }
+
+    .receita button.receita-show-moreless img {
+        width: 3rem;
+    }
+
+
+
+/* receita short */
+
+.receita-wrapper.short {
+    border: none;
+}
+
+.receita.short {
+    border: none;
+    /*    border: 2px solid red;*/
+}
+    .receita.short h2 {
+        margin: 0;
+    }
+
+    .receita.short .receita-content {
+        padding: 10px;
+    }
+
+.receita-right {
+    flex: 1;
+}
+
+.receita.short .receita-header {
+    flex: 1;
+}
+
+.receita.short .receita-id {
+    margin-right: 200px;
+}
+
+
+    .receita.short .receita-about {
+        display: flex !important;
+        flex-wrap: wrap;
+        flex: 1;
+        margin: 0;
+/*        grid-template-areas: 'img';*/
+        height: 100%;
+        align-items: flex-start;
+        width: 100%;
+    }
+
+    .receita.short .receita-img {
+        width: 200px;
+        height: 200px;
+    }
+
+    .receita.short .receita-info {
+        flex-direction:row;
+        padding:0 20px;
+    }
+
+    .receita.short .receita-info span {
+        flex-direction: row;
+        width: initial;
+        height: initial;
+        padding: 4px;
+    }
+
+    .receita.short .receita-info span img {
+        width: 24px;
+        height: 24px;
+    }

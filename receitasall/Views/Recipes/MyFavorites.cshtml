@@ -1,0 +1,238 @@
+﻿@model IEnumerable<receitasall.Models.FavoriteRecipe>
+
+@{
+    ViewBag.Title = "Minhas receitas";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Minhas Receitas Favoritas</h2>
+
+<!--<p>-->
+    @*@Html.ActionLink("Create New", "Create")*@
+    @*@Html.ActionLink("Edit", "Edit", new { id = item.ID }) |*@
+
+     @*. colocando link em um botão normal*@
+    <!--<button class="btn btn-primary" onclick=" window.location.href = '@Url.Action("Create", "Recipes")' ">Criar nova receita</button>
+</p>-->
+
+
+@if (Model.Count() == 0)
+{
+    <div class="blockquote-comment">
+        Você ainda não favoritou nenhuma receita. Ou as receitas que você favoritou não estão disponíveis.
+    </div>
+}
+
+@foreach (var item in Model)
+{
+    <div class="receita-wrapper short">
+        <div class="receita-header">
+            <div class="author">
+                @if (item.Recipe.Author != null && item.Recipe.Author.Image != null && !string.IsNullOrEmpty(item.Recipe.Author.Image))
+                {
+                    <img class="author-image" src="@item.Recipe.Author.Image" alt="imagem do autor">
+                }
+                else
+                {
+                    <img class="author-image" src="~/Images/author-default.png" alt="imagem do autor">
+                }
+
+                <span class="author-name">
+                    <span>
+                        @item.Recipe.Author.FirstName @item.Recipe.Author.LastName @if (item.Recipe.Author.Pseudonym != null)
+                        {<span>(AKA @item.Recipe.Author.Pseudonym)</span>}
+
+                        <span class="receita-header-datetime">
+                            @item.Recipe.DateAdded.ToString("dd/MM/yyyy") às @item.Recipe.DateAdded.ToString("HH:mm")
+                            @if (item.Recipe.DateAdded != item.Recipe.DateUpdated)
+                            {
+                                <span class="receita-header-datetime-modified">
+                                    (modificado pela última vez em @item.Recipe.DateUpdated.ToString("dd/MM/yyyy") às @item.Recipe.DateUpdated.ToString("HH:mm"))
+                                </span>
+                            }
+                        </span>
+                    </span>
+                    <span class="author-name-tag">
+                        Autor
+                    </span>
+                </span>
+            </div>
+
+            <div class="visibilidade">
+                @if (item.Recipe.IsPrivate)
+                {
+                    <img class="visibility-image" src="~/Images/private.png" alt="visibilidade"> <span>Privada</span>
+                }
+                else
+                {
+                    <img class="visibility-image" src="~/Images/public.png" alt="visibilidade"> <span>Pública</span>
+                }
+            </div>
+        </div>
+
+        <div class="receita printable short" id="receita-@item.Recipe.ID" style="--accentColor: @(item.Recipe.AccentColor ?? "rgb(0,0,0)")">
+            <div class="receita-content">
+                <div class="receita-about">
+                    @if (item.Recipe.Image != null && !string.IsNullOrEmpty(item.Recipe.Image))
+                    {
+                        <img class="receita-img" src="@item.Recipe.Image" alt="imagem da receita">
+                    }
+                    else
+                    {
+                        <img class="receita-img" src="~/Images/recipe-default2.png" alt="imagem da receita">
+                    }
+
+                    <div class="receita-right">
+                        <div class="receita-header">
+                            <div style="display:flex; align-items:flex-end;">
+                                <h2 class="receita-title">
+                                    @item.Recipe.Title
+                                </h2>
+                            </div>
+
+                            <div class="receita-id">
+                                #@item.Recipe.ID
+                            </div>
+                        </div>
+
+                        <div class="receita-short-content">
+                            <div style="height: 83px; padding: 20px;">
+                                @if (item.Recipe.Description != null)
+                                {
+                                    <span>@(item.Recipe.Description.Length > 100 ? item.Recipe.Description.Substring(0, 100) + "..." : item.Recipe.Description)</span>
+                                }
+                            </div>
+
+                            @*<div class="receita-header">
+                                <div class="author">
+                                    @if (item.Author != null && item.Author.Image != null && !string.IsNullOrEmpty(item.Author.Image))
+                                    {
+                                        <img class="author-image" src="@item.Author.Image" alt="imagem do autor">
+                                    }
+                                    else
+                                    {
+                                        <img class="author-image" src="~/Images/author-default.png" alt="imagem do autor">
+                                    }
+
+                                    <span class="author-name">
+                                        <span>
+                                            @item.Author.FirstName @item.Author.LastName @if (item.Author.Pseudonym != null)
+                                            {<span>(AKA @item.Author.Pseudonym)</span>}
+                                        </span>
+                                        <span class="author-name-tag">
+                                            Autor
+                                        </span>
+                                    </span>
+                                </div>
+                            </div>*@
+
+                            <div class="receita-info">
+                                <span>
+                                    @if (item.Recipe.Difficulty == receitasall.Enums.Difficulty.Easy)
+                                    {
+                                        <img src="~/Images/facil.png" alt="">
+                                    }
+                                    else if (item.Recipe.Difficulty == receitasall.Enums.Difficulty.Medium)
+                                    {
+                                        <img src="~/Images/medio.png" alt="">
+                                    }
+                                    else
+                                    {
+                                        <img src="~/Images/dificil.png" alt="">
+                                    }
+                                    <span class="receita-info-value">
+                                        @if (item.Recipe.Difficulty == receitasall.Enums.Difficulty.Easy)
+                                        {
+                                            <span>fácil</span>
+                                        }
+                                        else if (item.Recipe.Difficulty == receitasall.Enums.Difficulty.Medium)
+                                        {
+                                            <span>médio</span>
+                                        }
+                                        else
+                                        {
+                                            <span>difícil</span>
+                                        }
+                                    </span>
+                                </span>
+
+                                <span>
+                                    <img src="~/Images/time.png" alt="">
+                                    <span class="receita-info-value">@item.Recipe.PreparationTimeInMinutes min</span>
+                                </span>
+
+                                <span>
+                                    <img src="~/Images/ingredients.png" alt="">
+                                    <span class="receita-info-value">@item.Recipe.Ingredients.Count ingreditentes</span>
+                                </span>
+
+                                <span>
+                                    @if (item.Recipe.IsPrivate)
+                                    {
+                                        <img class="visibility-image" src="~/Images/private.png" alt="visibilidade"> <span class="receita-info-value">privada</span>
+                                    }
+                                    else
+                                    {
+                                        <img class="visibility-image" src="~/Images/public.png" alt="visibilidade"> <span class="receita-info-value">pública</span>
+                                    }
+                                </span>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <div class="receita-actions">
+                    @*<button class="favorite font-effect-fire-animation">
+                        <span class="favorite-icon-holder">
+                            <span class="material-symbols-outlined notranslate" translate="no">favorite</span>
+                        </span>
+                        <p>favoritar</p>
+                    </button>*@
+                    <button class="btn btn-secondary" onclick=" window.location.href = '@Url.Action("Details", "Recipes", new { id = item.Recipe.ID})' ">Acessar</button>
+                    <button class="btn btn-secondary" onclick=" window.location.href = '@Url.Action("Delete", "FavoriteRecipes", new { id = item.ID})' ">Desfavoritar</button>
+                </div>
+            </div>
+
+            @if (item.Recipe.Image != null && !string.IsNullOrEmpty(item.Recipe.Image))
+            {
+                <img class="receita-background" src="@item.Recipe.Image" alt="imagem da receita">
+            }
+            else
+            {
+                <img class="receita-background" src="~/Images/recipe-default2.png" alt="imagem da receita">
+            }
+        </div>
+    </div>
+}
+
+<script>
+    // receitas
+    const receitas = document.querySelectorAll("div.receita")
+
+    const l = receitas.length
+    for (let i = 0; i < l; i++) {
+        if (receitas[i].classList.contains('short')) {
+            continue
+        }
+        const show_button = receitas[i].querySelector('.receita-show-moreless')
+        const show_button_span = receitas[i].querySelector('.receita-show-moreless span')
+
+        show_button.addEventListener('click', function () {
+            if (show_button.classList.contains('more')) {
+                show_button_span.innerHTML = 'mostrar menos'
+                show_button.classList.remove('more')
+                show_button.classList.add('less')
+                receitas[i].classList.remove('closed')
+            } else {
+                show_button_span.innerHTML = 'mostrar mais'
+                show_button.classList.remove('less')
+                show_button.classList.add('more')
+                receitas[i].classList.add('closed')
+            }
+        })
+    }
+</script>

@@ -1,0 +1,344 @@
+﻿@model receitasall.Models.Recipe
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Receita: #@Model.ID</h2>
+
+<p>
+    <button class="btn btn-secondary" onclick=" window.location.href = '@Url.Action("MyRecipes", "Recipes")' ">Ir para minhas receitas</button>
+</p>
+
+<div class="receita-wrapper short">
+    <div class="receita-header">
+        <div class="author">
+            @*@if (Model.Author != null && Model.Author.Image != null && !string.IsNullOrEmpty(Model.Author.Image))
+                {
+                    <img class="author-image" src="@Model.Author.Image" alt="imagem do autor">
+                }
+                else
+                {
+                    <img class="author-image" src="~/Images/author-default.png" alt="imagem do autor">
+                }*@
+
+            <span class="author-name">
+                <span>
+                    @*@Model.Author.FirstName @Model.Author.LastName @if (Model.Author.Pseudonym != null)
+                        {<span>(AKA @Model.Author.Pseudonym)</span>}*@
+
+                    <span class="receita-header-datetime">
+                        @Model.DateAdded.ToString("dd/MM/yyyy") às @Model.DateAdded.ToString("HH:mm")
+                        @if (Model.DateAdded != Model.DateUpdated)
+                        {
+                            <span class="receita-header-datetime-modified">
+                                (modificado pela última vez em @Model.DateUpdated.ToString("dd/MM/yyyy") às @Model.DateUpdated.ToString("HH:mm"))
+                            </span>
+                        }
+                    </span>
+                </span>
+                @*<span class="author-name-tag">
+                        Autor
+                    </span>*@
+            </span>
+        </div>
+
+        <div class="visibilidade">
+            @if (Model.IsPrivate)
+            {
+                <img class="visibility-image" src="~/Images/private.png" alt="visibilidade"> <span>Privada</span>
+            }
+            else
+            {
+                <img class="visibility-image" src="~/Images/public.png" alt="visibilidade"> <span>Pública</span>
+            }
+        </div>
+    </div>
+
+    <div class="receita printable short" id="receita-@Model.ID" style="--accentColor: @(Model.AccentColor ?? "rgb(0,0,0)")">
+        <div class="receita-content">
+            <div class="receita-about">
+                @if (Model.Image != null && !string.IsNullOrEmpty(Model.Image))
+                {
+                    <img class="receita-img" src="@Model.Image" alt="imagem da receita">
+                }
+                else
+                {
+                    <img class="receita-img" src="~/Images/recipe-default2.png" alt="imagem da receita">
+                }
+
+                <div class="receita-right">
+                    <div class="receita-header">
+                        <div style="display:flex; align-items:flex-end;">
+                            <h2 class="receita-title">
+                                @Model.Title
+                            </h2>
+                        </div>
+
+                        <div class="receita-id">
+                            #@Model.ID
+                        </div>
+                    </div>
+
+                    <div class="receita-short-content">
+                        <div style="height: 83px; padding: 20px;">
+                            @if (Model.Description != null)
+                            {
+                                <span>@(Model.Description.Length > 100 ? Model.Description.Substring(0, 100) + "..." : Model.Description)</span>
+                            }
+                        </div>
+
+                        <div class="receita-info">
+                            <span>
+                                @if (Model.Difficulty == receitasall.Enums.Difficulty.Easy)
+                                {
+                                    <img src="~/Images/facil.png" alt="">
+                                }
+                                else if (Model.Difficulty == receitasall.Enums.Difficulty.Medium)
+                                {
+                                    <img src="~/Images/medio.png" alt="">
+                                }
+                                else
+                                {
+                                    <img src="~/Images/dificil.png" alt="">
+                                }
+                                <span class="receita-info-value">
+                                    @if (Model.Difficulty == receitasall.Enums.Difficulty.Easy)
+                                    {
+                                        <span>fácil</span>
+                                    }
+                                    else if (Model.Difficulty == receitasall.Enums.Difficulty.Medium)
+                                    {
+                                        <span>médio</span>
+                                    }
+                                    else
+                                    {
+                                        <span>difícil</span>
+                                    }
+                                </span>
+                            </span>
+
+                            <span>
+                                <img src="~/Images/time.png" alt="">
+                                <span class="receita-info-value">@Model.PreparationTimeInMinutes min</span>
+                            </span>
+
+                            <span>
+                                <img src="~/Images/ingredients.png" alt="">
+                                <span class="receita-info-value">@Model.Ingredients.Count ingreditentes</span>
+                            </span>
+
+                            <span>
+                                @if (Model.IsPrivate)
+                                {
+                                    <img class="visibility-image" src="~/Images/private.png" alt="visibilidade"> <span class="receita-info-value">privada</span>
+                                }
+                                else
+                                {
+                                    <img class="visibility-image" src="~/Images/public.png" alt="visibilidade"> <span class="receita-info-value">pública</span>
+                                }
+                            </span>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <div class="receita-actions">
+                <button class="btn btn-secondary" onclick=" window.location.href = '@Url.Action("Details", "Recipes", new { id = Model.ID})' ">Acessar</button>
+            </div>
+        </div>
+
+        @if (Model.Image != null && !string.IsNullOrEmpty(Model.Image))
+        {
+            <img class="receita-background" src="@Model.Image" alt="imagem da receita">
+        }
+        else
+        {
+            <img class="receita-background" src="~/Images/recipe-default2.png" alt="imagem da receita">
+        }
+    </div>
+</div>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal" style="margin-bottom: 40px;">
+        <h4>Editar receita</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.ID)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Image, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Image, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Image, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.AccentColor, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.AccentColor, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.AccentColor, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Difficulty, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.Difficulty, new SelectList(new[] {
+                    new { Value = "1", Text = "Fácil" },
+                    new { Value = "2", Text = "Médio" },
+                    new { Value = "3", Text = "Difícil" }
+                }, "Value", "Text"), "Selecione a dificuldade", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Difficulty, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.IsPrivate, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.CheckBoxFor(model => model.IsPrivate, new { @class = "form-check-input" })
+                @Html.ValidationMessageFor(model => model.IsPrivate, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.PreparationTimeInMinutes, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.PreparationTimeInMinutes, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.PreparationTimeInMinutes, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Rendimento, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Rendimento, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Rendimento, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        @*<div class="image-preview">
+                <img src="@Model.Image" alt="Image" />
+            </div>*@
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+}
+
+
+
+<div style="margin-bottom: 40px;">
+    <h4>Ingredientes</h4>
+    <hr />
+
+    <button class="btn btn-outline-primary" onclick=" window.location.href = '@Url.Action("Create", "Ingredients", new { recipeId = Model.ID }, null)' ">Adicionar Ingredientes</button>
+
+    <table class="table">
+        <tr>
+            <th>
+                Prioridade de exibição
+            </th>
+            <th  style="width: 50%">
+                Ingrediente
+            </th>
+            <th>
+                Ações
+            </th>
+        </tr>
+
+        @foreach (var item in Model.Ingredients)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Order)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Value)
+                </td>
+                <td>
+                    @Html.ActionLink("Delete", "Delete", "Ingredients", new { id = item.ID }, null)
+                    @Html.ActionLink("Editar", "Edit", "Ingredients", new { id = item.ID }, null)
+                </td>
+            </tr>
+        }
+    </table>
+</div>
+
+<div style="margin-bottom: 40px;">
+    <h4>Passos</h4>
+    <hr />
+
+    <button class="btn btn-outline-primary" onclick=" window.location.href = '@Url.Action("Create", "Steps", new { recipeId = Model.ID }, null)' ">Adicionar Passo</button>
+
+    <table class="table">
+        <tr>
+            <th>
+                Prioridade de exibição
+            </th>
+            <th style="width: 50%">
+                Passo
+            </th>
+            <th>
+                Ações
+            </th>
+        </tr>
+
+        @foreach (var item in Model.Steps)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Order)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Value)
+                </td>
+                <td>
+                    @Html.ActionLink("Delete", "Delete", "Steps", new { id = item.ID }, null)
+                    @Html.ActionLink("Editar", "Edit", "Steps", new { id = item.ID }, null)
+                </td>
+            </tr>
+        }
+    </table>
+</div>
+
+
+<div>
+    <h4>Outras opções</h4>
+    <hr />
+
+    <button class="btn btn-danger" onclick=" window.location.href = '@Url.Action("Delete", "Recipes", new { id = Model.ID}, null)' ">Apagar receita</button>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

@@ -1,0 +1,97 @@
+﻿@model receitasall.Models.Author
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+@if (!ViewBag.HasAuthor)
+{
+    <h1>
+        Ainda não ativou sua conta de autor.
+        @Html.ActionLink("Ativar conta", "Create", "Authors")
+    </h1>
+}
+
+@if (ViewBag.HasAuthor)
+{
+    <div>
+        <h4>Author</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.FirstName)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.FirstName)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.LastName)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.LastName)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Nacionality)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Nacionality)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Image)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Image)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Bibliography)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Bibliography)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Pseudonym)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Pseudonym)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.EmailContact)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.EmailContact)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.UserId)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.UserId)
+            </dd>
+
+        </dl>
+
+
+        @Html.ActionLink("Editar", "Edit", "Authors")
+    </div>
+}
+
+@*<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>*@
