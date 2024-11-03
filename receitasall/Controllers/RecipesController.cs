@@ -56,29 +56,34 @@ namespace receitasall.Controllers
             var userId = User.Identity.GetUserId();
             if (userId != null)
             {
-                Author author = db.Authors.FirstOrDefault(a => a.UserId.ToString() == userId);
+                // Encontrar o autor associado ao usuário logado
+                Author author = db.Authors.FirstOrDefault(a => a.UserId == userId);
                 ViewBag.UserAuthor = author;
 
+                // Verificar o status de admin do usuário
                 var userManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
                 var user = userManager.FindById(userId);
-                if (!user.Admin)
+                if (user != null && user.Admin)
                 {
-                    if (recipe.IsPrivate)
-                    {
-                        if (author == null || author.ID != recipe.AuthorId)
-                        {
-                            return new HttpStatusCodeResult(HttpStatusCode.Forbidden);
-                        }
-                    }
-
+                    ViewBag.IsAdmin = true;
                 }
-                ViewBag.IsAdmin = user.Admin ? true : false;
+                else
+                {
+                    // Se a receita for privada, verifique a permissão
+                    if (recipe.IsPrivate && (author == null || author.ID != recipe.AuthorId))
+                    {
+                        return new HttpStatusCodeResult(HttpStatusCode.Forbidden);
+                    }
+                }
+            } else
+            {
+                if (recipe.IsPrivate)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.Forbidden);
+                }
+
             }
 
-            if (recipe.IsPrivate)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.Forbidden);
-            }
 
             recipe.Ingredients = db.Ingredients.Where(i => i.RecipeId == id).ToList();
 
@@ -289,8 +294,19 @@ namespace receitasall.Controllers
                 {
                     return new HttpStatusCodeResult(HttpStatusCode.Forbidden);
                 }
-
             }
+
+            // verificar se tem referencias
+            var recipeCookbooks = db.RecipeCookbooks.Where(rc => rc.RecipeId == recipe.ID).ToList();
+            var favoriteRecipes = db.FavoriteRecipes.Where(fr => fr.RecipeId == recipe.ID).ToList();
+
+            ViewBag.HasReferences = false;
+            if (recipeCookbooks.Count > 0 || favoriteRecipes.Count > 0)
+            {
+                //return new HttpStatusCodeResult(HttpStatusCode.Conflict);
+                ViewBag.HasReferences = true;
+            }
+
 
             return View(recipe);
         }
@@ -320,8 +336,18 @@ namespace receitasall.Controllers
 
             }
 
-            db.Recipes.Remove(recipe);
-            db.SaveChanges();
+            try
+            {
+                db.Recipes.Remove(recipe);
+                db.SaveChanges();
+
+            }
+            catch (Exception ex)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.InternalServerError, ex.Message);
+
+            }
+
             return RedirectToAction("Index");
         }
 

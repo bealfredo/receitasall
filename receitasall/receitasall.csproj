@@ -176,117 +176,13 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202410270155218_MigrationCreate.cs" />
-    <Compile Include="Migrations\202410270155218_MigrationCreate.Designer.cs">
-      <DependentUpon>202410270155218_MigrationCreate.cs</DependentUpon>
+    <Compile Include="Migrations\202411031105337_inicial.cs" />
+    <Compile Include="Migrations\202411031105337_inicial.Designer.cs">
+      <DependentUpon>202411031105337_inicial.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202410270427359_NomeDaMigration.cs" />
-    <Compile Include="Migrations\202410270427359_NomeDaMigration.Designer.cs">
-      <DependentUpon>202410270427359_NomeDaMigration.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202410270449043_NomeDaMigration2.cs" />
-    <Compile Include="Migrations\202410270449043_NomeDaMigration2.Designer.cs">
-      <DependentUpon>202410270449043_NomeDaMigration2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202410271240202_MigrationCreate33.cs" />
-    <Compile Include="Migrations\202410271240202_MigrationCreate33.Designer.cs">
-      <DependentUpon>202410271240202_MigrationCreate33.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202410271330394_MigrationCreate333.cs" />
-    <Compile Include="Migrations\202410271330394_MigrationCreate333.Designer.cs">
-      <DependentUpon>202410271330394_MigrationCreate333.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202410271512190_MigrationCreate3331.cs" />
-    <Compile Include="Migrations\202410271512190_MigrationCreate3331.Designer.cs">
-      <DependentUpon>202410271512190_MigrationCreate3331.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202410271545339_MigrationCreate33345.cs" />
-    <Compile Include="Migrations\202410271545339_MigrationCreate33345.Designer.cs">
-      <DependentUpon>202410271545339_MigrationCreate33345.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202410271854249_MigrationCreate333456.cs" />
-    <Compile Include="Migrations\202410271854249_MigrationCreate333456.Designer.cs">
-      <DependentUpon>202410271854249_MigrationCreate333456.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202410272156300_AddRecipeCookbookRelationship223.cs" />
-    <Compile Include="Migrations\202410272156300_AddRecipeCookbookRelationship223.Designer.cs">
-      <DependentUpon>202410272156300_AddRecipeCookbookRelationship223.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202410272159104_MigrationCreate1222.cs" />
-    <Compile Include="Migrations\202410272159104_MigrationCreate1222.Designer.cs">
-      <DependentUpon>202410272159104_MigrationCreate1222.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202410272217242_MigrationCreate12224.cs" />
-    <Compile Include="Migrations\202410272217242_MigrationCreate12224.Designer.cs">
-      <DependentUpon>202410272217242_MigrationCreate12224.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202410272217579_MigrationCreate122241.cs" />
-    <Compile Include="Migrations\202410272217579_MigrationCreate122241.Designer.cs">
-      <DependentUpon>202410272217579_MigrationCreate122241.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202410272222202_MigrationCreate122246.cs" />
-    <Compile Include="Migrations\202410272222202_MigrationCreate122246.Designer.cs">
-      <DependentUpon>202410272222202_MigrationCreate122246.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202410272223426_MigrationCreate1222467.cs" />
-    <Compile Include="Migrations\202410272223426_MigrationCreate1222467.Designer.cs">
-      <DependentUpon>202410272223426_MigrationCreate1222467.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202410272310094_migration22.cs" />
-    <Compile Include="Migrations\202410272310094_migration22.Designer.cs">
-      <DependentUpon>202410272310094_migration22.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202410272323215_migration223.cs" />
-    <Compile Include="Migrations\202410272323215_migration223.Designer.cs">
-      <DependentUpon>202410272323215_migration223.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202410272330437_migration2234.cs" />
-    <Compile Include="Migrations\202410272330437_migration2234.Designer.cs">
-      <DependentUpon>202410272330437_migration2234.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202410272332086_migration22345.cs" />
-    <Compile Include="Migrations\202410272332086_migration22345.Designer.cs">
-      <DependentUpon>202410272332086_migration22345.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202410291807027_migration77.cs" />
-    <Compile Include="Migrations\202410291807027_migration77.Designer.cs">
-      <DependentUpon>202410291807027_migration77.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202411012215277_mig1234.cs" />
-    <Compile Include="Migrations\202411012215277_mig1234.Designer.cs">
-      <DependentUpon>202411012215277_mig1234.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202411022037040_migstep134.cs" />
-    <Compile Include="Migrations\202411022037040_migstep134.Designer.cs">
-      <DependentUpon>202411022037040_migstep134.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202411030144331_SeedDefaultUsers.cs" />
-    <Compile Include="Migrations\202411030144331_SeedDefaultUsers.Designer.cs">
-      <DependentUpon>202411030144331_SeedDefaultUsers.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202411030249212_SeedDefaultUsers1.cs" />
-    <Compile Include="Migrations\202411030249212_SeedDefaultUsers1.Designer.cs">
-      <DependentUpon>202411030249212_SeedDefaultUsers1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202411030312407_useradmin.cs" />
-    <Compile Include="Migrations\202411030312407_useradmin.Designer.cs">
-      <DependentUpon>202411030312407_useradmin.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202411030317366_SeedDefaultUsers2.cs" />
-    <Compile Include="Migrations\202411030317366_SeedDefaultUsers2.Designer.cs">
-      <DependentUpon>202411030317366_SeedDefaultUsers2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202411030328342_SeedDefaultUsers3.cs" />
-    <Compile Include="Migrations\202411030328342_SeedDefaultUsers3.Designer.cs">
-      <DependentUpon>202411030328342_SeedDefaultUsers3.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202411030334491_SeedDefaultUsers4.cs" />
-    <Compile Include="Migrations\202411030334491_SeedDefaultUsers4.Designer.cs">
-      <DependentUpon>202411030334491_SeedDefaultUsers4.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202411030454001_favorite.cs" />
-    <Compile Include="Migrations\202411030454001_favorite.Designer.cs">
-      <DependentUpon>202411030454001_favorite.cs</DependentUpon>
+    <Compile Include="Migrations\202411031112570_defaultuser.cs" />
+    <Compile Include="Migrations\202411031112570_defaultuser.Designer.cs">
+      <DependentUpon>202411031112570_defaultuser.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -323,6 +219,7 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Images\author-default.png" />
+    <Content Include="Images\cookbook-default.jpg" />
     <Content Include="Images\dificil.png" />
     <Content Include="Images\expand_less.png" />
     <Content Include="Images\expand_more.png" />
@@ -457,89 +354,11 @@
     <Content Include="Scripts\jquery-3.7.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202410270155218_MigrationCreate.resx">
-      <DependentUpon>202410270155218_MigrationCreate.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202411031105337_inicial.resx">
+      <DependentUpon>202411031105337_inicial.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202410270427359_NomeDaMigration.resx">
-      <DependentUpon>202410270427359_NomeDaMigration.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202410270449043_NomeDaMigration2.resx">
-      <DependentUpon>202410270449043_NomeDaMigration2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202410271240202_MigrationCreate33.resx">
-      <DependentUpon>202410271240202_MigrationCreate33.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202410271330394_MigrationCreate333.resx">
-      <DependentUpon>202410271330394_MigrationCreate333.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202410271512190_MigrationCreate3331.resx">
-      <DependentUpon>202410271512190_MigrationCreate3331.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202410271545339_MigrationCreate33345.resx">
-      <DependentUpon>202410271545339_MigrationCreate33345.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202410271854249_MigrationCreate333456.resx">
-      <DependentUpon>202410271854249_MigrationCreate333456.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202410272156300_AddRecipeCookbookRelationship223.resx">
-      <DependentUpon>202410272156300_AddRecipeCookbookRelationship223.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202410272159104_MigrationCreate1222.resx">
-      <DependentUpon>202410272159104_MigrationCreate1222.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202410272217242_MigrationCreate12224.resx">
-      <DependentUpon>202410272217242_MigrationCreate12224.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202410272217579_MigrationCreate122241.resx">
-      <DependentUpon>202410272217579_MigrationCreate122241.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202410272222202_MigrationCreate122246.resx">
-      <DependentUpon>202410272222202_MigrationCreate122246.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202410272223426_MigrationCreate1222467.resx">
-      <DependentUpon>202410272223426_MigrationCreate1222467.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202410272310094_migration22.resx">
-      <DependentUpon>202410272310094_migration22.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202410272323215_migration223.resx">
-      <DependentUpon>202410272323215_migration223.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202410272330437_migration2234.resx">
-      <DependentUpon>202410272330437_migration2234.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202410272332086_migration22345.resx">
-      <DependentUpon>202410272332086_migration22345.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202410291807027_migration77.resx">
-      <DependentUpon>202410291807027_migration77.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202411012215277_mig1234.resx">
-      <DependentUpon>202411012215277_mig1234.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202411022037040_migstep134.resx">
-      <DependentUpon>202411022037040_migstep134.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202411030144331_SeedDefaultUsers.resx">
-      <DependentUpon>202411030144331_SeedDefaultUsers.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202411030249212_SeedDefaultUsers1.resx">
-      <DependentUpon>202411030249212_SeedDefaultUsers1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202411030312407_useradmin.resx">
-      <DependentUpon>202411030312407_useradmin.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202411030317366_SeedDefaultUsers2.resx">
-      <DependentUpon>202411030317366_SeedDefaultUsers2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202411030328342_SeedDefaultUsers3.resx">
-      <DependentUpon>202411030328342_SeedDefaultUsers3.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202411030334491_SeedDefaultUsers4.resx">
-      <DependentUpon>202411030334491_SeedDefaultUsers4.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202411030454001_favorite.resx">
-      <DependentUpon>202411030454001_favorite.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202411031112570_defaultuser.resx">
+      <DependentUpon>202411031112570_defaultuser.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

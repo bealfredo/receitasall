@@ -118,7 +118,7 @@ namespace receitasall.Controllers
 
                 db.SaveChanges();
 
-                return RedirectToAction("MyRecipes", "Recipes");
+                return RedirectToAction("MyFavorites", "Recipes");
             }
 
             ViewBag.Recipes = db.Recipes.ToList();

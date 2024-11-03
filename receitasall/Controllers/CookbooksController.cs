@@ -36,45 +36,104 @@ namespace receitasall.Controllers
                 ViewBag.myRecipes = author.Cookbooks;
             }
 
-            // only public, but for userdefault all
-            return View(db.Cookbooks.ToList());
+            // order by desc
+            var cookbooks = db.Cookbooks.OrderByDescending(c => c.DateAdded).ToList();
+
+            return View(cookbooks);
         }
 
         // GET: Cookbooks/Details/5
+        //public ActionResult Details(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
+        //    Cookbook cookbook = db.Cookbooks.Find(id);
+        //    if (cookbook == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+
+        //    if (cookbook.IsPrivate)
+        //    {
+        //        var userId = User.Identity.GetUserId();
+        //        if (userId == null)
+        //        {
+        //            return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //        }
+        //        Author author = db.Authors.FirstOrDefault(a => a.UserId.ToString() == userId);
+        //        var userManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+        //        var user = userManager.FindById(userId);
+        //        if (!user.Admin)
+        //        {
+        //            if (author == null || author.ID != cookbook.AuthorId)
+        //            {
+        //                return new HttpStatusCodeResult(HttpStatusCode.Forbidden);
+        //            } else
+        //            {
+        //                cookbook.RecipeCookbook = cookbook.RecipeCookbook.OrderBy(i => i.Order).ToList();
+        //                return View(cookbook);
+        //            }
+
+        //        }
+        //    }
+
+        //    // ordena as receitas
+
+        //    //return View(cookbook);
+
+
+        //}
+
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Cookbook cookbook = db.Cookbooks.Find(id);
+
+            var cookbook = db.Cookbooks
+                .Include(c => c.RecipeCookbook.Select(rc => rc.Recipe)) // Carrega Recipe associado
+                .FirstOrDefault(c => c.ID == id);
+
+
             if (cookbook == null)
             {
                 return HttpNotFound();
             }
 
-            if (cookbook.IsPrivate)
+            var userId = User.Identity.GetUserId();
+            Author author = null;
+            bool isAdmin = false;
+
+            if (userId != null)
             {
-                var userId = User.Identity.GetUserId();
-                if (userId == null)
-                {
-                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-                }
-                Author author = db.Authors.FirstOrDefault(a => a.UserId.ToString() == userId);
+                author = db.Authors.FirstOrDefault(a => a.UserId.ToString() == userId);
                 var userManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
                 var user = userManager.FindById(userId);
-                if (!user.Admin)
-                {
-                    if (author == null || author.ID != cookbook.AuthorId)
-                    {
-                        return new HttpStatusCodeResult(HttpStatusCode.Forbidden);
-                    }
-
-                }
+                isAdmin = user.Admin;
             }
 
-            // ordena as receitas
-            cookbook.RecipeCookbook = cookbook.RecipeCookbook.OrderBy(i => i.Order).ToList();
+            // Se o livro for privado e o usuário não for o autor nem o administrador, negar o acesso
+            if (cookbook.IsPrivate && (author == null || author.ID != cookbook.AuthorId) && !isAdmin)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.Forbidden);
+            }
+
+            // Se o usuário for o autor ou administrador, exibir todas as receitas, incluindo privadas
+            if (author != null && author.ID == cookbook.AuthorId || isAdmin)
+            {
+                cookbook.RecipeCookbook = cookbook.RecipeCookbook.OrderBy(i => i.Order).ToList();
+            }
+            else
+            {
+                // Filtra apenas as receitas públicas para outros usuários
+                cookbook.RecipeCookbook = cookbook.RecipeCookbook
+                    .Where(r => !r.Recipe.IsPrivate) // Considerando que Recipe tem a propriedade IsPrivate
+                    .OrderBy(i => i.Order)
+                    .ToList();
+            }
 
             return View(cookbook);
         }
@@ -228,7 +287,7 @@ namespace receitasall.Controllers
 
                 db.Entry(existingCookbook).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("edit", "Cookbooks", new { id = existingCookbook.ID });
             }
             return View(cookbook);
         }

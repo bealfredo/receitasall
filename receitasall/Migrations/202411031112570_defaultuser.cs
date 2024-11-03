@@ -3,7 +3,7 @@
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class SeedDefaultUsers2 : DbMigration
+    public partial class defaultuser : DbMigration
     {
         public override void Up()
         {
@@ -11,12 +11,12 @@
             var passwordHash = "AOVqemQtNzWqD+0RaPaRv9Ib/tREd52Zj+adATwQSkKAclgROtQ8xJdPPrg/0Nm5FA=="; // #Joao5000
             var securityStamp = Guid.NewGuid().ToString();
             var concurrencyStamp = Guid.NewGuid().ToString();
-            var userId = Guid.NewGuid(); // Novo ID do usuário
+            var userId = Guid.NewGuid(); // Novo ID do usuárioS
 
             Sql($@"
                 INSERT INTO AspNetUsers (Id, Email, EmailConfirmed, PasswordHash, SecurityStamp, PhoneNumber, PhoneNumberConfirmed, TwoFactorEnabled, LockoutEndDateUtc, LockoutEnabled, AccessFailedCount, UserName, Admin)
                 VALUES (
-                    '{Guid.NewGuid()}', 
+                    '{userId}', 
                     'defaultuser@example.com', 
                     0,  -- EmailConfirmed
                     '{passwordHash}', 
@@ -41,7 +41,7 @@
                     'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSg_H-BZgmjZYpmp3QDlppUbkyUX2OBbpG0Ug&s', 
                     'Sou admin', 
                     'admin', 
-                    'defaultuser@example.com@exemplo.com', 
+                    'defaultuser@example.com', 
                     '{userId}'
                 );
             ");
@@ -50,7 +50,7 @@
         public override void Down()
         {
             // Remova o autor padrão se necessário
-            Sql("DELETE FROM Authors WHERE EmailContact = 'contato@exemplo.com'");
+            Sql("DELETE FROM Authors WHERE EmailContact = 'defaultuser@example'");
 
             // Remova o usuário padrão se necessário
             Sql("DELETE FROM AspNetUsers WHERE UserName = 'defaultuser@example.com'");

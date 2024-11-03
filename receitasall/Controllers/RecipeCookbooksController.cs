@@ -262,6 +262,13 @@ namespace receitasall.Controllers
             {
                 return HttpNotFound();
             }
+
+            var recipe = db.Recipes.Find(recipeCookbook.RecipeId);
+            if (recipe == null)
+            {
+                return HttpNotFound();
+            }
+
             var userId = User.Identity.GetUserId();
             Author userAuthor = db.Authors.FirstOrDefault(a => a.UserId.ToString() == userId);
 
@@ -275,6 +282,10 @@ namespace receitasall.Controllers
                 }
 
             }
+
+            ViewBag.Cookbook = cookbook;
+            ViewBag.Recipe = recipe;
+
 
             return View(recipeCookbook);
         }

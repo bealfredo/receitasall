@@ -11,10 +11,16 @@
     @*@Html.ActionLink("Create New", "Create")*@
     @*@Html.ActionLink("Edit", "Edit", new { id = item.ID }) |*@
 
-     @*. colocando link em um botão normal*@
+    @*. colocando link em um botão normal*@
     <button class="btn btn-primary" onclick=" window.location.href = '@Url.Action("Create", "Recipes")' ">Criar nova receita</button>
 </p>
 
+@if (Model.Count() == 0)
+{
+    <div class="blockquote-comment">
+        Você ainda não possui nenhuma receita.
+    </div>
+}
 
 @foreach (var item in Model)
 {
@@ -97,27 +103,27 @@
                             </div>
 
                             @*<div class="receita-header">
-                                <div class="author">
-                                    @if (item.Author != null && item.Author.Image != null && !string.IsNullOrEmpty(item.Author.Image))
-                                    {
-                                        <img class="author-image" src="@item.Author.Image" alt="imagem do autor">
-                                    }
-                                    else
-                                    {
-                                        <img class="author-image" src="~/Images/author-default.png" alt="imagem do autor">
-                                    }
+                                    <div class="author">
+                                        @if (item.Author != null && item.Author.Image != null && !string.IsNullOrEmpty(item.Author.Image))
+                                        {
+                                            <img class="author-image" src="@item.Author.Image" alt="imagem do autor">
+                                        }
+                                        else
+                                        {
+                                            <img class="author-image" src="~/Images/author-default.png" alt="imagem do autor">
+                                        }
 
-                                    <span class="author-name">
-                                        <span>
-                                            @item.Author.FirstName @item.Author.LastName @if (item.Author.Pseudonym != null)
-                                            {<span>(AKA @item.Author.Pseudonym)</span>}
+                                        <span class="author-name">
+                                            <span>
+                                                @item.Author.FirstName @item.Author.LastName @if (item.Author.Pseudonym != null)
+                                                {<span>(AKA @item.Author.Pseudonym)</span>}
+                                            </span>
+                                            <span class="author-name-tag">
+                                                Autor
+                                            </span>
                                         </span>
-                                        <span class="author-name-tag">
-                                            Autor
-                                        </span>
-                                    </span>
-                                </div>
-                            </div>*@
+                                    </div>
+                                </div>*@
 
                             <div class="receita-info">
                                 <span>
@@ -180,11 +186,11 @@
             <div>
                 <div class="receita-actions">
                     @*<button class="favorite font-effect-fire-animation">
-                        <span class="favorite-icon-holder">
-                            <span class="material-symbols-outlined notranslate" translate="no">favorite</span>
-                        </span>
-                        <p>favoritar</p>
-                    </button>*@
+                            <span class="favorite-icon-holder">
+                                <span class="material-symbols-outlined notranslate" translate="no">favorite</span>
+                            </span>
+                            <p>favoritar</p>
+                        </button>*@
                     <button class="btn btn-secondary" onclick=" window.location.href = '@Url.Action("Details", "Recipes", new { id = item.ID})' ">Acessar</button>
                     <button class="btn btn-secondary" onclick=" window.location.href = '@Url.Action("Edit", "Recipes", new { id = item.ID})' ">Editar</button>
                 </div>

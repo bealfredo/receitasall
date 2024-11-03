@@ -5,11 +5,14 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Delete</h2>
+<h2>Livro de Receita: @Model.Title (#@Model.ID)</h2>
 
-<h3>Are you sure you want to delete this?</h3>
+<div class="blockquote-warn">
+    Essa ação não pode ser desfeita.
+</div>
+
 <div>
-    <h4>Cookbook</h4>
+    <h4>Apagar Livro de Receitas</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -29,14 +32,6 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Image)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Image)
-        </dd>
-
-        <dt>
             @Html.DisplayNameFor(model => model.IsPrivate)
         </dt>
 
@@ -44,22 +39,15 @@
             @Html.DisplayFor(model => model.IsPrivate)
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.AuthorId)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.AuthorId)
-        </dd>
-
     </dl>
 
-    @using (Html.BeginForm()) {
+    @using (Html.BeginForm())
+    {
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
             <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
+            @Html.ActionLink("Ir para lista", "Index")
         </div>
     }
 </div>
