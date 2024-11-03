@@ -24,12 +24,9 @@ namespace receitasall.Controllers
         //}
 
         // GET: FavoriteRecipes/Create
+        [Authorize]
         public ActionResult Create(int recipeId)
         {
-            //ViewBag.AuthorId = new SelectList(db.Authors, "ID", "FirstName");
-            //ViewBag.RecipeId = new SelectList(db.Recipes, "ID", "Title");
-            //return View();
-
             var recipe = db.Recipes.Find(recipeId);
             if (recipe == null)
             {
@@ -67,17 +64,6 @@ namespace receitasall.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ID,AuthorId,RecipeId,DateAdded")] FavoriteRecipe favoriteRecipe)
         {
-            //if (ModelState.IsValid)
-            //{
-            //    db.FavoriteRecipes.Add(favoriteRecipe);
-            //    db.SaveChanges();
-            //    return RedirectToAction("Index");
-            //}
-
-            //ViewBag.AuthorId = new SelectList(db.Authors, "ID", "FirstName", favoriteRecipe.AuthorId);
-            //ViewBag.RecipeId = new SelectList(db.Recipes, "ID", "Title", favoriteRecipe.RecipeId);
-            //return View(favoriteRecipe);
-
             if (ModelState.IsValid)
             {
                 var recipe = db.Recipes.Find(favoriteRecipe.RecipeId);
@@ -118,7 +104,7 @@ namespace receitasall.Controllers
 
                 db.SaveChanges();
 
-                return RedirectToAction("MyRecipes", "Recipes");
+                return RedirectToAction("MyFavorites", "Recipes");
             }
 
             ViewBag.Recipes = db.Recipes.ToList();
@@ -129,19 +115,9 @@ namespace receitasall.Controllers
 
 
         // GET: FavoriteRecipes/Delete/5
+        [Authorize]
         public ActionResult Delete(int? id)
         {
-            //if (id == null)
-            //{
-            //    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            //}
-            //FavoriteRecipe favoriteRecipe = db.FavoriteRecipes.Find(id);
-            //if (favoriteRecipe == null)
-            //{
-            //    return HttpNotFound();
-            //}
-            //return View(favoriteRecipe);
-
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);

@@ -69,14 +69,14 @@ border-top: 1px solid rgba(0,0,0,0.1)
     margin-left: 20px;
 }
 
-.receita-wrapper .author {
+.author {
     padding: 20px;
     display: flex;
     align-items: center;
     gap: 20px;
 }
 
-.receita-wrapper .author-image {
+ .author-image {
     box-shadow: 0px 0px 4px rgba(0,0,0,0.8);
     width: 40px;
     height: 40px;
@@ -573,3 +573,92 @@ div.possiveis-decoracoes > img {
         width: 24px;
         height: 24px;
     }
+
+
+
+
+
+/* cookbook */
+
+.cookbook-wrapper {
+    border-left: 8px solid var(--accentColor);
+    position: relative;
+    padding-bottom: 10px;
+    margin-bottom: 40px;
+}
+
+.cookbook {
+    height: 200px;
+    background-image: none;
+    box-shadow: none;
+    margin-bottom: 20px;
+}
+
+.cookbook-back {
+    background-color: var(--accentColor);
+    position: absolute;
+    /*    z-index: -1;*/
+    inset: 0;
+    opacity: 0.05;
+}
+
+.cookbook img.receita-background {
+    width: 100%;
+}
+
+.cookbook-content {
+    position: relative;
+    z-index: 100;
+    background-color: white;
+}
+
+.cookbook .title {
+    padding: 0;
+    margin: 0;
+    text-decoration: none;
+    padding: 20px;
+    background-color: var(--accentColor);
+    color: white;
+    text-shadow: 0 0 4px black;
+    filter: drop-shadow(0 0 4px black);
+    opacity: 1;
+}
+
+.cookbook-about {
+    margin: 20px;
+    margin-bottom: 40px;
+}
+
+
+/* Altor image */
+
+.author-image-profile-wrapper {
+    width: 200px;
+    height: 200px;
+    position: relative;
+    border-radius: 50%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    text-align:center;
+    vertical-align: central;
+}
+
+.author-image-profile {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+
+/* filter */
+
+.filter {
+    display: flex;
+    gap: 8px;
+    align-items: flex-end;
+}

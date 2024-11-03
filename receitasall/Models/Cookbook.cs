@@ -21,7 +21,7 @@ namespace receitasall.Models
         public string Description { get; set; }
 
         [Url]
-        [Display(Name = "Imagem")]
+        [Display(Name = "Imagem (URL)")]
         public string Image { get; set; }
 
         [Required]

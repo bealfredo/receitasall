@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Livro: @ViewBag.Cookbook.Title</h2>
+<h2>Livro de Receitas: @ViewBag.Cookbook.Title (#@ViewBag.Cookbook.ID)</h2>
 
 
 @using (Html.BeginForm())
@@ -162,7 +162,7 @@
 
                         <div>
                             <div class="receita-actions">
-                                <button class="btn btn-secondary" onclick=" window.location.href = '@Url.Action("Details", "Recipes", new { id = ViewBag.Recipe.ID})' ">Acessar</button>
+                                <button class="btn btn-secondary" onclick=" window.location.href = '@Url.Action("Details", "Recipes", new { id = ViewBag.Recipe.ID})' " type="button">Acessar</button>
                             </div>
                         </div>
 
@@ -202,7 +202,7 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Voltar para livro de receita", "Edit", "Cookbooks", new { id = Model.CookbookId }, null)
 </div>
 
 @section Scripts {

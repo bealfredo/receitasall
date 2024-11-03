@@ -5,98 +5,127 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Edit</h2>
+<h2>Livro de Receita: @Model.Title (#@Model.ID)</h2>
+
+<button class="btn btn-secondary" onclick=" window.location.href = '@Url.Action("Index", "Cookbooks")' " style="margin-bottom: 10px;">Ir para lista</button>
+<button class="btn btn-secondary" onclick=" window.location.href = '@Url.Action("Details", "Cookbooks", new {id = Model.ID})' " style="margin-bottom: 10px;">Ver livro</button>
+
 
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
 
-<div class="form-horizontal">
-    <h4>Cookbook</h4>
-    <hr />
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    @Html.HiddenFor(model => model.ID)
+    <div class="form-horizontal" style="margin-bottom: 40px;">
+        <h4>Editar livro de receita</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.ID)
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+            </div>
         </div>
-    </div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.Description, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+            </div>
         </div>
-    </div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.Image, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Image, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Image, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Image, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Image, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Image, "", new { @class = "text-danger" })
+            </div>
         </div>
-    </div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.AccentColor, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.AccentColor, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.AccentColor, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.AccentColor, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.AccentColor, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.AccentColor, "", new { @class = "text-danger" })
+            </div>
         </div>
-    </div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.IsPrivate, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            <div class="checkbox">
-                @Html.EditorFor(model => model.IsPrivate)
-                @Html.ValidationMessageFor(model => model.IsPrivate, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.IsPrivate, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.IsPrivate)
+                    @Html.ValidationMessageFor(model => model.IsPrivate, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Salvar" class="btn btn-primary" />
             </div>
         </div>
     </div>
-
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Save" class="btn btn-default" />
-        </div>
-    </div>
-</div>
 }
 
-@Html.ActionLink("Adicionar receita", "Create", "RecipeCookbooks", new { cookbookId = Model.ID }, null)
+<div style="margin-bottom: 40px;">
 
-@{
-    int index = 1;
-}
+    @*@Html.ActionLink("Adicionar receita", "Create", "RecipeCookbooks", new { cookbookId = Model.ID }, null)*@
+    <h4>Receitas do livro</h4>
+    <hr />
 
-<table class="table">
-    <tr>
-        <th>Ordem</th>
-        <th>Receita</th>
-        <th>Ações</th>
-    </tr>
+    <button class="btn btn-outline-primary" onclick=" window.location.href = '@Url.Action("Create", "RecipeCookbooks", new { cookbookId = Model.ID }, null)' ">Adicionar Receita</button>
 
-    @foreach (var item in Model.RecipeCookbook)
-    {
-        <tr>
-            <td>@item.Order</td>
-            <td>@Html.DisplayFor(modelItem => item.Recipe.Title)</td>
-            <td>
-                @Html.ActionLink("Delete", "Delete", "RecipeCookbooks", new { id = item.ID }, null)
-                @Html.ActionLink("Editar", "Edit", "RecipeCookbooks", new { id = item.ID }, null)
-            </td>
-        </tr>
-        index++;
+
+    @{
+        int index = 1;
     }
-</table>
+
+    <table class="table">
+        <tr>
+            <th>Ordem</th>
+            <th>Receita</th>
+            <th>Visibilidade</th>
+            <th>Ações</th>
+        </tr>
+
+        @foreach (var item in Model.RecipeCookbook)
+        {
+            <tr>
+                <td>@item.Order</td>
+                <td>@Html.DisplayFor(modelItem => item.Recipe.Title)</td>
+                <td>
+                    <div class="visibilidade"  style="padding: 0px; display: block;">
+                        @if (item.Recipe.IsPrivate)
+                        {
+                            <img class="visibility-image" src="~/Images/private.png" alt="visibilidade" style="padding: 0px"> <span>Privada</span>
+                        }
+                        else
+                        {
+                            <img class="visibility-image" src="~/Images/public.png" alt="visibilidade" style="padding: 0px"> <span>Pública</span>
+                        }
+                    </div>
+                </td>
+                <td>
+                    @Html.ActionLink("Ver receita", "Details", "Recipes", new { id = item.RecipeId }, null)
+                    @Html.ActionLink("Delete", "Delete", "RecipeCookbooks", new { id = item.ID }, null)
+                    @Html.ActionLink("Editar", "Edit", "RecipeCookbooks", new { id = item.ID }, null)
+                </td>
+            </tr>
+            index++;
+        }
+    </table>
+</div>
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    <h4>Outras opções</h4>
+    <hr />
+
+    <button class="btn btn-danger" onclick=" window.location.href = '@Url.Action("Delete", "Cookbooks", new { id = Model.ID}, null)' ">Apagar livro de receita</button>
 </div>
 
 @section Scripts {

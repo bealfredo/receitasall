@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.UI.WebControls;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
 using receitasall.Models;
 
 namespace receitasall.Controllers
@@ -16,11 +17,25 @@ namespace receitasall.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        //// GET: Authors
-        //public ActionResult Index()
-        //{
-        //    return View(db.Authors.ToList());
-        //}
+        // GET: Authors
+        [Authorize]
+        public ActionResult Index()
+        {
+            var userId = User.Identity.GetUserId();
+            if (userId == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            var userManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            var user = userManager.FindById(userId);
+            if (!user.Admin)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.Forbidden);
+
+            }
+            return View(db.Authors.ToList());
+        }
 
         // GET: Authors/Details/5
         [Authorize]
@@ -49,6 +64,7 @@ namespace receitasall.Controllers
         }
 
         // GET: Authors/Create
+        [Authorize]
         public ActionResult Create()
         {
             var userId = User.Identity.GetUserId();
@@ -105,13 +121,14 @@ namespace receitasall.Controllers
 
                 db.Authors.Add(author);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details");
             }
 
             return View(author);
         }
 
         // GET: Authors/Edit/5
+        [Authorize]
         public ActionResult Edit()
         {
             var userId = User.Identity.GetUserId();

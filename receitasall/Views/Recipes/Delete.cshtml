@@ -14,6 +14,12 @@
     Essa ação não pode ser desfeita.
 </div>
 
+@if (ViewBag.HasReferences)
+{
+    <div class="blockquote-error">
+        Essa receita não pode ser apagada pois está sendo referenciada em outras partes do sistema. Mas você pode deixá-la privada!
+    </div>
+}
 
 <div>
     <h4>Apagar Receita</h4>
@@ -22,18 +28,18 @@
         <div class="receita-header">
             <div class="author">
                 @*@if (Model.Author != null && Model.Author.Image != null && !string.IsNullOrEmpty(Model.Author.Image))
-                {
-                    <img class="author-image" src="@Model.Author.Image" alt="imagem do autor">
-                }
-                else
-                {
-                    <img class="author-image" src="~/Images/author-default.png" alt="imagem do autor">
-                }*@
+                    {
+                        <img class="author-image" src="@Model.Author.Image" alt="imagem do autor">
+                    }
+                    else
+                    {
+                        <img class="author-image" src="~/Images/author-default.png" alt="imagem do autor">
+                    }*@
 
                 <span class="author-name">
                     <span>
                         @*@Model.Author.FirstName @Model.Author.LastName @if (Model.Author.Pseudonym != null)
-                        {<span>(AKA @Model.Author.Pseudonym)</span>}*@
+                            {<span>(AKA @Model.Author.Pseudonym)</span>}*@
 
                         <span class="receita-header-datetime">
                             @Model.DateAdded.ToString("dd/MM/yyyy") às @Model.DateAdded.ToString("HH:mm")
@@ -46,8 +52,8 @@
                         </span>
                     </span>
                     @*<span class="author-name-tag">
-                        Autor
-                    </span>*@
+                            Autor
+                        </span>*@
                 </span>
             </div>
 
@@ -172,11 +178,16 @@
     </div>
 
 
-    @using (Html.BeginForm()) {
+    @using (Html.BeginForm())
+    {
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-outline-secondary" /> |
+            @if (!ViewBag.HasReferences)
+             {
+                <input type="submit" value="Delete" class="btn btn-outline-secondary"/>
+
+             }
 
             <button type="button" class="btn btn-secondary" onclick=" window.location.href = '@Url.Action("Edit", "Recipes", new { id = Model.ID })' ">Cancelar</button>
         </div>

@@ -39,6 +39,7 @@ namespace receitasall.Controllers
         //}
 
         // GET: Steps/Create
+        [Authorize]
         public ActionResult Create(int recipeId)
         {
             var recipe = db.Recipes.Find(recipeId);
@@ -109,6 +110,7 @@ namespace receitasall.Controllers
         }
 
         // GET: Steps/Edit/5
+        [Authorize]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -192,6 +194,7 @@ namespace receitasall.Controllers
         }
 
         // GET: Steps/Delete/5
+        [Authorize]
         public ActionResult Delete(int? id)
         {
             if (id == null)
