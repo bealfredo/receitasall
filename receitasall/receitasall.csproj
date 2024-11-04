@@ -184,6 +184,14 @@
     <Compile Include="Migrations\202411031112570_defaultuser.Designer.cs">
       <DependentUpon>202411031112570_defaultuser.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202411032212113_migration-datanotation.cs" />
+    <Compile Include="Migrations\202411032212113_migration-datanotation.Designer.cs">
+      <DependentUpon>202411032212113_migration-datanotation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202411032331108_migration-seed.cs" />
+    <Compile Include="Migrations\202411032331108_migration-seed.Designer.cs">
+      <DependentUpon>202411032331108_migration-seed.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\FavoriteRecipe.cs" />
@@ -360,6 +368,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202411031112570_defaultuser.resx">
       <DependentUpon>202411031112570_defaultuser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202411032212113_migration-datanotation.resx">
+      <DependentUpon>202411032212113_migration-datanotation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202411032331108_migration-seed.resx">
+      <DependentUpon>202411032331108_migration-seed.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

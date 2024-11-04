@@ -16,7 +16,7 @@ namespace receitasall.Models
         [Display(Name = "Título")]
         public string Title { get; set; }
 
-        [StringLength(200)]
+        [StringLength(500)]
         [Display(Name = "Descrição")]
         public string Description { get; set; }
 
