@@ -23,7 +23,7 @@ A aplicação foi desenvolvida utilizando ASP.NET com o framework MVC 5 e Entity
 7. Abra o Package Manager Console e execute o comando `Update-Database` para criar o banco de dados
 8. Execute o projeto
 
-### Adicionando o usuario padrão
+### Adicionando o usuario administrador
 
 - Crie uma nova migration com o comando `add-migration defaultuser`
 - No arquivo de migração criado, subtitua os métodos `Up` e `Down` pelo seguinte código:
@@ -81,7 +81,9 @@ public override void Up()
         }
 ```
 
-- Execute o comando `Update-Database` para adicionar o usuário padrão ao banco de dados
+- Execute o comando `Update-Database` para adicionar o usuário administrador ao banco de dados
+  - **Usuário**: defaultuser@example.com
+  - **Senha**: #Joao5000
 
 ## Funcionalidades
 
