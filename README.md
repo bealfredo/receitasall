@@ -17,8 +17,11 @@ A aplicação foi desenvolvida utilizando ASP.NET com o framework MVC 5 e Entity
 1. Clone o repositório para sua máquina local: [ReceitasAll](https://github.com/bealfredo/receitasall)
 2. Abra o projeto no Visual Studio
 3. Abra o arquivo `Web.config` e altere a string de conexão para o seu banco de dados local
-4. Abra o Package Manager Console e execute o comando `Update-Database` para criar o banco de dados
-5. Execute o projeto
+4. Abra o Package Manager Console e execute o comando `Install-Package EntityFramework` para instalar o Entity Framework
+5. Execute o comando `add-migration inicial` para criar a migração inicial
+6. No arquivo de migração criado, na linha 78, substitua `.ForeignKey("dbo.Authors", t => t.AuthorId, cascadeDelete: true)` por `.ForeignKey("dbo.Authors", t => t.AuthorId, cascadeDelete: false)` 
+7. Abra o Package Manager Console e execute o comando `Update-Database` para criar o banco de dados
+8. Execute o projeto
 
 ## Funcionalidades
 
