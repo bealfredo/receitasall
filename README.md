@@ -23,6 +23,66 @@ A aplicação foi desenvolvida utilizando ASP.NET com o framework MVC 5 e Entity
 7. Abra o Package Manager Console e execute o comando `Update-Database` para criar o banco de dados
 8. Execute o projeto
 
+### Adicionando o usuario padrão
+
+- Crie uma nova migration com o comando `add-migration defaultuser`
+- No arquivo de migração criado, subtitua os métodos `Up` e `Down` pelo seguinte código:
+
+```csharp	
+public override void Up()
+        {
+            // Exemplo de hash gerado (use a classe PasswordHasher para obter um valor real)
+            var passwordHash = "AOVqemQtNzWqD+0RaPaRv9Ib/tREd52Zj+adATwQSkKAclgROtQ8xJdPPrg/0Nm5FA=="; // #Joao5000
+            var securityStamp = Guid.NewGuid().ToString();
+            var concurrencyStamp = Guid.NewGuid().ToString();
+            var userId = Guid.NewGuid(); // Novo ID do usuárioS
+
+            Sql($@"
+                INSERT INTO AspNetUsers (Id, Email, EmailConfirmed, PasswordHash, SecurityStamp, PhoneNumber, PhoneNumberConfirmed, TwoFactorEnabled, LockoutEndDateUtc, LockoutEnabled, AccessFailedCount, UserName, Admin)
+                VALUES (
+                    '{userId}', 
+                    'defaultuser@example.com', 
+                    0,  -- EmailConfirmed
+                    '{passwordHash}', 
+                    '{securityStamp}', 
+                    NULL,  -- PhoneNumber
+                    0,  -- PhoneNumberConfirmed
+                    0,  -- TwoFactorEnabled
+                    NULL,  -- LockoutEndDateUtc
+                    1,  -- LockoutEnabled
+                    0,  -- AccessFailedCount
+                    'defaultuser@example.com',
+                    1
+                );
+            ");
+
+            Sql($@"
+                INSERT INTO Authors (FirstName, LastName, Nacionality, Image, Bibliography, Pseudonym, EmailContact, UserId)
+                VALUES (
+                    'Admin', 
+                    'Admin', 
+                    'Brasileiro', 
+                    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSg_H-BZgmjZYpmp3QDlppUbkyUX2OBbpG0Ug&s', 
+                    'Sou admin', 
+                    'admin', 
+                    'defaultuser@example.com', 
+                    '{userId}'
+                );
+            ");
+        }
+
+        public override void Down()
+        {
+            // Remova o autor padrão se necessário
+            Sql("DELETE FROM Authors WHERE EmailContact = 'defaultuser@example'");
+
+            // Remova o usuário padrão se necessário
+            Sql("DELETE FROM AspNetUsers WHERE UserName = 'defaultuser@example.com'");
+        }
+```
+
+- Execute o comando `Update-Database` para adicionar o usuário padrão ao banco de dados
+
 ## Funcionalidades
 
 - Cadastro de usuário com e-mail e senha ou autenticação externa com Facebook e Google
