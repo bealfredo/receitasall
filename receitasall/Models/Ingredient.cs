@@ -14,7 +14,7 @@ namespace receitasall.Models
         public int Order { get; set; }
         [Required]
         [Display(Name = "Ingrediente")]
-        [StringLength(200, MinimumLength = 1)]
+        [StringLength(500, MinimumLength = 1)]
         public string Value { get; set; }
         [Required]
         public int RecipeId { get; set; }
