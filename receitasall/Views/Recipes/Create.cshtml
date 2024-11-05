@@ -53,7 +53,7 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.AccentColor, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.AccentColor, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.TextBoxFor(model => model.AccentColor, new { @class = "form-control", type = "color" })
                     @Html.ValidationMessageFor(model => model.AccentColor, "", new { @class = "text-danger" })
                 </div>
             </div>
